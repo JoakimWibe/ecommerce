@@ -16,7 +16,7 @@ public static class DbInitializer
                 Description =
                     "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                 Price = 20000,
-                PictureUrl = "/images/products/sb-ang1.png",
+                PictureUrl = "https://res.cloudinary.com/drcfqqqab/image/upload/v1684415082/ecommerce/sb-ang1_pyatnk.png",
                 Brand = "Angular",
                 Type = "Boards",
                 QuantityInStock = 100
@@ -24,9 +24,9 @@ public static class DbInitializer
             new Product
             {
                 Name = "Green Angular Board 3000",
-                Description = "Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus.",
+                Description = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                 Price = 15000,
-                PictureUrl = "/images/products/sb-ang2.png",
+                PictureUrl = "https://res.cloudinary.com/drcfqqqab/image/upload/v1684415082/ecommerce/sb-ang2_divqvt.png",
                 Brand = "Angular",
                 Type = "Boards",
                 QuantityInStock = 100
@@ -37,7 +37,7 @@ public static class DbInitializer
                 Description =
                     "Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy.",
                 Price = 18000,
-                PictureUrl = "/images/products/sb-core1.png",
+                PictureUrl = "https://res.cloudinary.com/drcfqqqab/image/upload/v1684415083/ecommerce/sb-core1_yechee.png",
                 Brand = "NetCore",
                 Type = "Boards",
                 QuantityInStock = 100
@@ -48,7 +48,7 @@ public static class DbInitializer
                 Description =
                     "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.",
                 Price = 30000,
-                PictureUrl = "/images/products/sb-core2.png",
+                PictureUrl = "https://res.cloudinary.com/drcfqqqab/image/upload/v1684415082/ecommerce/sb-core2_yqu5qj.png",
                 Brand = "NetCore",
                 Type = "Boards",
                 QuantityInStock = 100
@@ -59,7 +59,7 @@ public static class DbInitializer
                 Description =
                     "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                 Price = 25000,
-                PictureUrl = "/images/products/sb-react1.png",
+                PictureUrl = "https://res.cloudinary.com/drcfqqqab/image/upload/v1684415083/ecommerce/sb-react1_t5yxy6.png",
                 Brand = "React",
                 Type = "Boards",
                 QuantityInStock = 100
@@ -70,7 +70,7 @@ public static class DbInitializer
                 Description =
                     "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                 Price = 12000,
-                PictureUrl = "/images/products/sb-ts1.png",
+                PictureUrl = "https://res.cloudinary.com/drcfqqqab/image/upload/v1684415083/ecommerce/sb-ts1_n7iwfd.png",
                 Brand = "TypeScript",
                 Type = "Boards",
                 QuantityInStock = 100
@@ -81,7 +81,7 @@ public static class DbInitializer
                 Description =
                     "Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                 Price = 1000,
-                PictureUrl = "/images/products/hat-core1.png",
+                PictureUrl = "https://res.cloudinary.com/drcfqqqab/image/upload/v1684415082/ecommerce/hat-core1_hpnfrh.png",
                 Brand = "NetCore",
                 Type = "Hats",
                 QuantityInStock = 100
@@ -92,7 +92,7 @@ public static class DbInitializer
                 Description =
                     "Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                 Price = 8000,
-                PictureUrl = "/images/products/hat-react1.png",
+                PictureUrl = "https://res.cloudinary.com/drcfqqqab/image/upload/v1684415082/ecommerce/hat-react1_rj0sqi.png",
                 Brand = "React",
                 Type = "Hats",
                 QuantityInStock = 100
@@ -103,7 +103,7 @@ public static class DbInitializer
                 Description =
                     "Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                 Price = 1500,
-                PictureUrl = "/images/products/hat-react2.png",
+                PictureUrl = "https://res.cloudinary.com/drcfqqqab/image/upload/v1684415082/ecommerce/hat-react2_czkhio.png",
                 Brand = "React",
                 Type = "Hats",
                 QuantityInStock = 100
@@ -114,7 +114,7 @@ public static class DbInitializer
                 Description =
                     "Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                 Price = 1800,
-                PictureUrl = "/images/products/glove-code1.png",
+                PictureUrl = "https://res.cloudinary.com/drcfqqqab/image/upload/v1684415081/ecommerce/glove-code1_op3k5z.png",
                 Brand = "VS Code",
                 Type = "Gloves",
                 QuantityInStock = 100
@@ -125,7 +125,7 @@ public static class DbInitializer
                 Description =
                     "Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                 Price = 1500,
-                PictureUrl = "/images/products/glove-code2.png",
+                PictureUrl = "https://res.cloudinary.com/drcfqqqab/image/upload/v1684415081/ecommerce/glove-code2_kbfrtl.png",
                 Brand = "VS Code",
                 Type = "Gloves",
                 QuantityInStock = 100
@@ -136,7 +136,7 @@ public static class DbInitializer
                 Description =
                     "Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                 Price = 1600,
-                PictureUrl = "/images/products/glove-react1.png",
+                PictureUrl = "https://res.cloudinary.com/drcfqqqab/image/upload/v1684415082/ecommerce/glove-react1_gwd7l7.png",
                 Brand = "React",
                 Type = "Gloves",
                 QuantityInStock = 100
@@ -147,7 +147,7 @@ public static class DbInitializer
                 Description =
                     "Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                 Price = 1400,
-                PictureUrl = "/images/products/glove-react2.png",
+                PictureUrl = "https://res.cloudinary.com/drcfqqqab/image/upload/v1684415082/ecommerce/glove-react2_rtktvm.png",
                 Brand = "React",
                 Type = "Gloves",
                 QuantityInStock = 100
@@ -158,7 +158,7 @@ public static class DbInitializer
                 Description =
                     "Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy.",
                 Price = 25000,
-                PictureUrl = "/images/products/boot-redis1.png",
+                PictureUrl = "https://res.cloudinary.com/drcfqqqab/image/upload/v1684415081/ecommerce/boot-redis1_pnko2u.png",
                 Brand = "Redis",
                 Type = "Boots",
                 QuantityInStock = 100
@@ -169,7 +169,7 @@ public static class DbInitializer
                 Description =
                     "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna.",
                 Price = 18999,
-                PictureUrl = "/images/products/boot-core2.png",
+                PictureUrl = "https://res.cloudinary.com/drcfqqqab/image/upload/v1684415082/ecommerce/boot-core2_oofato.png",
                 Brand = "NetCore",
                 Type = "Boots",
                 QuantityInStock = 100
@@ -180,7 +180,7 @@ public static class DbInitializer
                 Description =
                     "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci.",
                 Price = 19999,
-                PictureUrl = "/images/products/boot-core1.png",
+                PictureUrl = "https://res.cloudinary.com/drcfqqqab/image/upload/v1684415081/ecommerce/boot-core1_t9zxn8.png",
                 Brand = "NetCore",
                 Type = "Boots",
                 QuantityInStock = 100
@@ -190,7 +190,7 @@ public static class DbInitializer
                 Name = "Angular Purple Boots",
                 Description = "Aenean nec lorem. In porttitor. Donec laoreet nonummy augue.",
                 Price = 15000,
-                PictureUrl = "/images/products/boot-ang2.png",
+                PictureUrl = "https://res.cloudinary.com/drcfqqqab/image/upload/v1684415081/ecommerce/boot-ang2_k30ldu.png",
                 Brand = "Angular",
                 Type = "Boots",
                 QuantityInStock = 100
@@ -201,7 +201,7 @@ public static class DbInitializer
                 Description =
                     "Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy.",
                 Price = 18000,
-                PictureUrl = "/images/products/boot-ang1.png",
+                PictureUrl = "https://res.cloudinary.com/drcfqqqab/image/upload/v1684415081/ecommerce/boot-ang1_f81b0e.png",
                 Brand = "Angular",
                 Type = "Boots",
                 QuantityInStock = 100
