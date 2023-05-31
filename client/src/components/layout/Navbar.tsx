@@ -6,10 +6,12 @@ import {
     useDisclosure,
     Stack,
     Icon,
+    Badge,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { Link } from 'react-router-dom';
 import { ImCart } from "react-icons/im"
+import { useStoreContext } from '../../context/StoreContext';
 
 const Links = [
     { title: "Home", path: "/" },
@@ -23,6 +25,8 @@ const Links = [
 
 export default function Navbar() {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const { basket } = useStoreContext();
+    const itemCount = basket?.items.reduce((sum, item) => sum + item.quantity, 0);
 
     return (
         <Box position={"fixed"} w={"full"} zIndex={1} px={4}>
@@ -45,7 +49,12 @@ export default function Navbar() {
                             <Link to={link.path} key={link.title}>{link.title}</Link>
                         ))}
                         <Link to={'/shopping-cart'}>
-                            <Icon as={ImCart} />
+                            <Box mt={2} position={"relative"}>
+                                <Icon zIndex={1} fontSize={"2xl"} as={ImCart} />
+                                <Badge top={"-7px"} right={"-8px"} position={"absolute"} borderRadius={"full"} variant='solid' colorScheme='green'>
+                                    {itemCount}
+                                </Badge>
+                            </Box>
                         </Link>
                     </HStack>
                 </HStack>
@@ -59,7 +68,12 @@ export default function Navbar() {
                                 <Link to={link.path} key={link.title}>{link.title}</Link>
                             ))}
                             <Link to={'/shopping-cart'}>
-                                <Icon as={ImCart} />
+                                <Box position={"relative"}>
+                                    <Icon zIndex={1} fontSize={"2xl"} as={ImCart} />
+                                    <Badge top={"-7px"} left={"15px"} position={"absolute"} borderRadius={"full"} variant='solid' colorScheme='green'>
+                                        {itemCount}
+                                    </Badge>
+                                </Box>
                             </Link>
                         </Stack>
                     </Box >

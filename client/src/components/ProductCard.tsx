@@ -3,6 +3,8 @@ import { Product } from "../models/product"
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import agent from "../api/agent";
+import { useStoreContext } from "../context/StoreContext";
+import { currencyFormat } from "../util/util";
 
 interface ProductCardProps {
     product: Product;
@@ -10,10 +12,12 @@ interface ProductCardProps {
 
 const ProductCard = ({ product }: ProductCardProps) => {
     const [loading, setLoading] = useState(false)
+    const { setBasket } = useStoreContext();
 
     const handleAddItem = (productId: number) => {
         setLoading(true);
         agent.Basket.addItem(productId)
+            .then(basket => setBasket(basket))
             .catch(error => console.log(error))
             .finally(() => setLoading(false));
     }
@@ -46,7 +50,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
                         {product.name}
                     </Heading>
                     <Text mb={4}>
-                        ${product.price}
+                        {currencyFormat(product.price)}
                     </Text>
                     <Text
                         textAlign={'center'}

@@ -19,6 +19,7 @@ import {
 } from '@chakra-ui/react';
 import NotFound from "../components/errors/NotFound";
 import Loading from "../components/layout/Loading";
+import { currencyFormat } from "../util/util";
 
 const ProductDetails = () => {
     const { id } = useParams<{ id: string }>();
@@ -66,7 +67,7 @@ const ProductDetails = () => {
                             {product.name}
                         </Heading>
                         <Text>
-                            ${product.price}
+                            {currencyFormat(product.price)}
                         </Text>
                     </Box>
 
