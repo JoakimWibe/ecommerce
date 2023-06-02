@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import { Product } from "../models/product";
@@ -16,23 +17,57 @@ import {
     StackDivider,
     List,
     ListItem,
+    FormLabel,
+    Input,
 } from '@chakra-ui/react';
 import NotFound from "../components/errors/NotFound";
 import Loading from "../components/layout/Loading";
 import { currencyFormat } from "../util/util";
+import { useStoreContext } from "../context/StoreContext";
 
 const ProductDetails = () => {
+    const { basket, setBasket, removeItem } = useStoreContext();
     const { id } = useParams<{ id: string }>();
     const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState(true);
+    const [quantity, setQuantity] = useState(0);
+    const [submitting, setSubmitting] = useState(false);
+    const item = basket?.items.find(i => i.productId === product?.id);
+
+
 
     useEffect(() => {
+        if (item) {
+            setQuantity(item.quantity);
+        }
         id && agent.Catalog.details(parseInt(id))
             .then(response => setProduct(response))
             .catch(error => console.log(error))
             .finally(() => setLoading(false))
-    }, [id]);
+    }, [id, item]);
 
+    const handleInputChange = (event: any) => {
+        if (event.target.value >= 0) {
+            setQuantity(parseInt(event.target.value));
+        }
+    }
+
+    const handleUpdateCart = () => {
+        setSubmitting(true);
+        if (!item || quantity > item.quantity) {
+            const updatedQuantity = item ? quantity - item.quantity : quantity;
+            agent.Basket.addItem(product?.id!, updatedQuantity)
+                .then(basket => setBasket(basket))
+                .catch(error => console.log(error))
+                .finally(() => setSubmitting(false));
+        } else {
+            const updatedQuantity = item.quantity - quantity;
+            agent.Basket.removeItem(product?.id!, updatedQuantity)
+                .then(() => removeItem(product?.id!, updatedQuantity))
+                .catch(error => console.log(error))
+                .finally(() => setSubmitting(false));
+        }
+    }
 
     if (loading) {
         return <Loading message="Loading product..." />
@@ -108,14 +143,16 @@ const ProductDetails = () => {
                             </List>
                         </Box>
                     </Stack>
-
-                    <Button>
-                        Add to cart
-                    </Button>
+                    <Flex gap={3} alignItems={"center"}>
+                        <FormLabel>Quantity:</FormLabel>
+                        <Input w={"sm"} type="number" value={quantity} onChange={handleInputChange} />
+                        <Button isDisabled={item?.quantity === quantity || !item && quantity === 0} onClick={handleUpdateCart} isLoading={submitting} loadingText={"Loading..."}>
+                            {item ? "Update quantity" : "Add to cart"}
+                        </Button>
+                    </Flex>
                 </Stack>
             </SimpleGrid>
-        </Container>
+        </Container >
     )
 }
-
-export default ProductDetails
+export default ProductDetails;

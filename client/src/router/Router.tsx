@@ -8,6 +8,7 @@ import Contact from "../pages/Contact";
 import ServerError from "../components/errors/ServerError";
 import NotFound from "../components/errors/NotFound";
 import ShoppingCart from "../pages/ShoppingCart";
+import Checkout from "../pages/Checkout";
 
 export const router = createBrowserRouter([
     {
@@ -22,6 +23,7 @@ export const router = createBrowserRouter([
             { path: "server-error", element: <ServerError /> },
             { path: "not-found", element: <NotFound /> },
             { path: "shopping-cart", element: <ShoppingCart /> },
+            { path: "checkout", element: <Checkout /> },
             { path: "*", element: <Navigate replace to="/not-found" /> },
         ]
     }

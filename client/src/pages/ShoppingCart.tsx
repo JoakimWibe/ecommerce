@@ -5,6 +5,7 @@ import { useState } from "react";
 import agent from "../api/agent";
 import { currencyFormat } from "../util/util";
 import BasketSummary from "../components/BasketSummary";
+import { Link } from "react-router-dom";
 
 const ShoppingCart = () => {
     const { basket, setBasket, removeItem } = useStoreContext();
@@ -74,6 +75,11 @@ const ShoppingCart = () => {
                 </Table>
             </TableContainer>
             <BasketSummary />
+            <Flex mt={10} mx={5} w={{ base: "auto", md: "3xl", lg: "5xl" }} justifyContent={"end"}>
+                <Link to={"/checkout"}>
+                    <Button>Checkout</Button>
+                </Link>
+            </Flex>
         </Flex>
     )
 }

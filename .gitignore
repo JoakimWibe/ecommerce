@@ -6,6 +6,7 @@
 API/appsettings.json
 .idea
 .vscode
+docker-compose.yml
 
 # User-specific files
 *.rsuser
