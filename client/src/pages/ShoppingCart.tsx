@@ -50,10 +50,12 @@ const ShoppingCart = () => {
                         {basket.items.map(item => (
                             <Tr key={item.productId}>
                                 <Td>
-                                    <Flex alignItems={"center"}>
-                                        <Image mr={5} height={50} src={item.pictureUrl} alt={item.name} />
-                                        <Text>{item.name}</Text>
-                                    </Flex>
+                                    <Link to={`/catalog/${item.productId}`}>
+                                        <Flex alignItems={"center"}>
+                                            <Image mr={5} height={50} src={item.pictureUrl} alt={item.name} />
+                                            <Text>{item.name}</Text>
+                                        </Flex>
+                                    </Link>
                                 </Td>
                                 <Td>{currencyFormat(item.price)}</Td>
                                 <Td>
