@@ -11,7 +11,7 @@ import {
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { Link } from 'react-router-dom';
 import { ImCart } from "react-icons/im"
-import { useStoreContext } from '../../context/StoreContext';
+import { useAppSelector } from '../../store/configureStore';
 
 const Links = [
     { title: "Home", path: "/" },
@@ -25,7 +25,7 @@ const Links = [
 
 export default function Navbar() {
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const { basket } = useStoreContext();
+    const { basket } = useAppSelector(state => state.basket);
     const itemCount = basket?.items.reduce((sum, item) => sum + item.quantity, 0);
 
     return (

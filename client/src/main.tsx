@@ -3,14 +3,15 @@ import ReactDOM from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
 import { router } from './router/router.tsx'
 import { ChakraProvider } from '@chakra-ui/react'
-import { StoreProvider } from './context/StoreContext.tsx'
+import { Provider } from 'react-redux'
+import { store } from './store/configureStore.ts'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <ChakraProvider>
-      <StoreProvider>
+      <Provider store={store}>
         <RouterProvider router={router} />
-      </StoreProvider>
+      </Provider>
     </ChakraProvider>
   </React.StrictMode>,
 )

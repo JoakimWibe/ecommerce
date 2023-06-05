@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
-import { Product } from "../models/product";
-import agent from "../api/agent";
 import {
     Box,
     Text,
@@ -23,28 +23,27 @@ import {
 import NotFound from "../components/errors/NotFound";
 import Loading from "../components/layout/Loading";
 import { currencyFormat } from "../util/util";
-import { useStoreContext } from "../context/StoreContext";
+import { useAppDispatch, useAppSelector } from "../store/configureStore";
+import { addBasketItemAsync, removeBasketItemAsync } from "../store/basketSlice";
+import { fetchProductAsync, productSelectors } from "../store/catalogSlice";
 
 const ProductDetails = () => {
-    const { basket, setBasket, removeItem } = useStoreContext();
+    const { basket, status } = useAppSelector(state => state.basket);
+    const dispatch = useAppDispatch();
     const { id } = useParams<{ id: string }>();
-    const [product, setProduct] = useState<Product | null>(null);
-    const [loading, setLoading] = useState(true);
+    const product = useAppSelector(state => productSelectors.selectById(state, id!));
+    const { status: productStatus } = useAppSelector(state => state.catalog);
     const [quantity, setQuantity] = useState(0);
-    const [submitting, setSubmitting] = useState(false);
     const item = basket?.items.find(i => i.productId === product?.id);
-
-
 
     useEffect(() => {
         if (item) {
             setQuantity(item.quantity);
         }
-        id && agent.Catalog.details(parseInt(id))
-            .then(response => setProduct(response))
-            .catch(error => console.log(error))
-            .finally(() => setLoading(false))
-    }, [id, item]);
+        if (!product) {
+            dispatch(fetchProductAsync(parseInt(id!)));
+        }
+    }, [id, item, dispatch, product]);
 
     const handleInputChange = (event: any) => {
         if (event.target.value >= 0) {
@@ -53,23 +52,16 @@ const ProductDetails = () => {
     }
 
     const handleUpdateCart = () => {
-        setSubmitting(true);
         if (!item || quantity > item.quantity) {
             const updatedQuantity = item ? quantity - item.quantity : quantity;
-            agent.Basket.addItem(product?.id!, updatedQuantity)
-                .then(basket => setBasket(basket))
-                .catch(error => console.log(error))
-                .finally(() => setSubmitting(false));
+            dispatch(addBasketItemAsync({ productId: product?.id!, quantity: updatedQuantity }))
         } else {
             const updatedQuantity = item.quantity - quantity;
-            agent.Basket.removeItem(product?.id!, updatedQuantity)
-                .then(() => removeItem(product?.id!, updatedQuantity))
-                .catch(error => console.log(error))
-                .finally(() => setSubmitting(false));
+            dispatch(removeBasketItemAsync({ productId: product?.id!, quantity: updatedQuantity }))
         }
     }
 
-    if (loading) {
+    if (productStatus.includes("pending")) {
         return <Loading message="Loading product..." />
     }
 
@@ -146,7 +138,7 @@ const ProductDetails = () => {
                     <Flex gap={3} alignItems={"center"}>
                         <FormLabel>Quantity:</FormLabel>
                         <Input w={"sm"} type="number" value={quantity} onChange={handleInputChange} />
-                        <Button isDisabled={item?.quantity === quantity || !item && quantity === 0} onClick={handleUpdateCart} isLoading={submitting} loadingText={"Loading..."}>
+                        <Button isDisabled={item?.quantity === quantity || !item && quantity === 0} onClick={handleUpdateCart} isLoading={status.includes("pending")} loadingText={"Loading..."}>
                             {item ? "Update quantity" : "Add to cart"}
                         </Button>
                     </Flex>

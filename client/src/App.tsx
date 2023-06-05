@@ -2,14 +2,15 @@ import { ToastContainer } from "react-toastify";
 import Navbar from "./components/layout/Navbar";
 import { Outlet } from "react-router-dom";
 import "react-toastify/ReactToastify.css"
-import { useStoreContext } from "./context/StoreContext";
 import { useEffect, useState } from "react";
 import { getCookie } from "./util/util";
 import agent from "./api/agent";
 import Loading from "./components/layout/Loading";
+import { useAppDispatch } from "./store/configureStore";
+import { setBasket } from "./store/basketSlice";
 
 function App() {
-  const { setBasket } = useStoreContext();
+  const dispatch = useAppDispatch();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -17,13 +18,13 @@ function App() {
 
     if (buyerId) {
       agent.Basket.get()
-        .then(basket => setBasket(basket))
+        .then(basket => dispatch(setBasket(basket)))
         .catch(error => console.log(error))
         .finally(() => setLoading(false));
     } else {
       setLoading(false);
     }
-  }, [setBasket])
+  }, [dispatch])
 
   if (loading) return <Loading message="Initialising app..." />
 

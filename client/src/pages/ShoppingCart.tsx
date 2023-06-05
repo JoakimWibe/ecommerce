@@ -1,34 +1,14 @@
 import { Heading, Flex, Table, Image, Text, TableContainer, Tbody, Td, Th, Thead, Tr, Divider, IconButton, Button } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
-import { useStoreContext } from "../context/StoreContext";
-import { useState } from "react";
-import agent from "../api/agent";
 import { currencyFormat } from "../util/util";
 import BasketSummary from "../components/BasketSummary";
 import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../store/configureStore";
+import { addBasketItemAsync, removeBasketItemAsync } from "../store/basketSlice";
 
 const ShoppingCart = () => {
-    const { basket, setBasket, removeItem } = useStoreContext();
-    const [status, setStatus] = useState({
-        loading: false,
-        name: ""
-    });
-
-    function handleAddItem(productId: number, name: string) {
-        setStatus({ loading: true, name });
-        agent.Basket.addItem(productId)
-            .then(basket => setBasket(basket))
-            .catch(error => console.log(error))
-            .finally(() => setStatus({ loading: false, name: "" }));
-    }
-
-    function handleRemoveItem(productId: number, quantity = 1, name: string) {
-        setStatus({ loading: true, name });
-        agent.Basket.removeItem(productId, quantity)
-            .then(() => removeItem(productId, quantity))
-            .catch(error => console.log(error))
-            .finally(() => setStatus({ loading: false, name: "" }));
-    }
+    const { basket, status } = useAppSelector(state => state.basket);
+    const dispatch = useAppDispatch();
 
     if (!basket) return <Heading>Your shopping cart is empty</Heading>
 
@@ -60,15 +40,19 @@ const ShoppingCart = () => {
                                 <Td>{currencyFormat(item.price)}</Td>
                                 <Td>
                                     <Flex alignItems={"center"} gap={5}>
-                                        <Button onClick={() => handleRemoveItem(item.productId, 1, "rem" + item.productId)} isLoading={status.loading && status.name === "rem" + item.productId}>-</Button>
+                                        <Button onClick={() => dispatch(removeBasketItemAsync({
+                                            productId: item.productId, quantity: 1, name: "rem"
+                                        }))} isLoading={status === "pendingRemoveItem" + item.productId + "rem"}>-</Button>
                                         <Text>{item.quantity}</Text>
-                                        <Button onClick={() => handleAddItem(item.productId, "add" + item.productId)} isLoading={status.loading && status.name === "add" + item.productId}>+</Button>
+                                        <Button onClick={() => dispatch(addBasketItemAsync({ productId: item.productId }))} isLoading={status === "pendingAddItem" + item.productId}>+</Button>
                                     </Flex>
                                 </Td>
                                 <Td>
                                     <Flex alignItems={"center"} gap={20}>
                                         <Text>${((item.price / 100) * item.quantity).toFixed(2)}</Text>
-                                        <IconButton onClick={() => handleRemoveItem(item.productId, item.quantity, "del" + item.productId)} isLoading={status.loading && status.name === "del" + item.productId} icon={<DeleteIcon />} aria-label={"deletes item from basket."} />
+                                        <IconButton onClick={() => dispatch(removeBasketItemAsync({
+                                            productId: item.productId, quantity: item.quantity, name: "del"
+                                        }))} isLoading={status === "pendingRemoveItem" + item.productId + "del"} icon={<DeleteIcon />} aria-label={"deletes item from basket."} />
                                     </Flex>
                                 </Td>
                             </Tr>

@@ -1,26 +1,17 @@
 import { Button, Text, Heading, Stack, Image, Center, Flex } from "@chakra-ui/react";
 import { Product } from "../models/product"
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import agent from "../api/agent";
-import { useStoreContext } from "../context/StoreContext";
 import { currencyFormat } from "../util/util";
+import { useAppDispatch, useAppSelector } from "../store/configureStore";
+import { addBasketItemAsync } from "../store/basketSlice";
 
 interface ProductCardProps {
     product: Product;
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
-    const [loading, setLoading] = useState(false)
-    const { setBasket } = useStoreContext();
-
-    const handleAddItem = (productId: number) => {
-        setLoading(true);
-        agent.Basket.addItem(productId)
-            .then(basket => setBasket(basket))
-            .catch(error => console.log(error))
-            .finally(() => setLoading(false));
-    }
+    const { status } = useAppSelector(state => state.basket)
+    const dispatch = useAppDispatch();
 
     return (
         <Center py={6} px={10}>
@@ -64,7 +55,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
                         padding={2}
                         justifyContent={'space-between'}
                         alignItems={'center'}>
-                        <Button onClick={() => handleAddItem(product.id)} isLoading={loading} loadingText='Loading...'>Add to cart</Button>
+                        <Button onClick={() => dispatch(addBasketItemAsync({ productId: product.id }))} isLoading={status.includes("pendingAddItem" + product.id)} loadingText='Loading...'>Add to cart</Button>
                         <Link to={`/catalog/${product.id}`}>
                             <Button>View</Button>
                         </Link>
